@@ -15,7 +15,8 @@ class App extends Component {
   render() {
 
     const { users } = config
-
+    const { onInpuChange, onMessageChange } = this.props
+    
     return (
       <Grid style={{height: '100%'}}>
         <Row className="show-grid" style={{height: '100%'}}>
