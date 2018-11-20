@@ -31,6 +31,7 @@ export default class UserPanel extends Component {
     onSendMsg(user) {
         const { onMessagePush } = this.props
         const { inputMsg } = this.state
+        this.setState({inputMsg: ""})
         onMessagePush(user, inputMsg)
     }
     onTypingReceived(data) {
@@ -63,7 +64,7 @@ export default class UserPanel extends Component {
     render() {
 
         const { user, toUser, messages } = this.props
-        const { typing } = this.state
+        const { typing, inputMsg } = this.state
 
         return(
             <Col className="chat-column" md={6} sm={6} xs={6} style={{height: '100%'}}>
@@ -81,6 +82,7 @@ export default class UserPanel extends Component {
                 </div>
                 <div className="user-input">
                   <UserInput 
+                    value={inputMsg}
                     onChatInput={(e) => this.onChatInput(user, e)}
                     onSendMsg={() => this.onSendMsg(user)}
                   />

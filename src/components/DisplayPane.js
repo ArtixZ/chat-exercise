@@ -13,12 +13,17 @@ export default class extends Component {
 
                     return (
                         <>
-                            {direction==='in'? (<div className="display-msg-in">
-                                {msg}
-                            </div>) : (<div className="display-msg-out">
-                                {msg}
-                            </div>)
-                            }
+                            {direction==='in'? (
+                                <div className="display-msg-in">
+                                    {msg}
+                                </div>) : (
+                                <div className="display-msg-out">
+                                    <div>
+                                        {msg}
+                                    </div>
+                                    <div><i>sent</i></div>
+                                </div> 
+                            )}
                         </>
                     )
                 })
