@@ -5,7 +5,7 @@ export const onInpuChange = (user) => {
     return (dispatch) => {
         // registerChat(function() {
             console.log(socket)
-            socket.emit("changing", {to: {id:3 - user.id}})
+            socket.emit("changing", {from: {id: user.id}, to: {id:3 - user.id}})
         // })
 
     }

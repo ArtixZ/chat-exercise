@@ -55,12 +55,19 @@ html, body {
 }
 .display-pane {
   display: flex;
+  position: relative;
   flex: 20;
   flex-direction: column;
   justify-content: flex-start;
 
   border: 1px solid #8080803b;
   margin: 5px 0;
+}
+.typing-status {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%)
 }
 .user-input {
   flex: 1;

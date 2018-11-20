@@ -16,13 +16,14 @@ class App extends Component {
 
     const { users } = config
     const { onInpuChange, onMessageChange } = this.props
-    
+
     return (
       <Grid style={{height: '100%'}}>
         <Row className="show-grid" style={{height: '100%'}}>
-          {users.map( user => 
+          {users.map( (user, idx) => 
             <UserPanel 
               user={user}
+              toUser={users[1-idx]}
               onInpuChange={onInpuChange}
               onMessageChange={onMessageChange}
             />

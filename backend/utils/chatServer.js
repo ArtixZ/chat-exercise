@@ -4,7 +4,6 @@ module.exports = function(io) {
             socket('')
         })
         socket.on('changing', function(data){
-            console.log(socket)
             socket.emit('changing', data)
         })
     })

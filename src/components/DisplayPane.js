@@ -24,6 +24,7 @@ export default class extends Component {
                 })
 
                 }
+                {this.props.children}
                 
             </>
         )
