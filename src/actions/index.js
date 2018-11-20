@@ -11,16 +11,36 @@ export const onInpuChange = (user) => {
     }
 }
 
-export const onMessageChange = (user, msg) => {
+export const onMessagePush = (user, msg) => {
+    return (dispatch) => {
+        const payload = {
+            direction: 'out',
+            status: 'sent',
+            msg,
+        }
+        dispatch({
+            type: UPDATE_MESSAGE,
+            payload,
+            id: user.id,
+        })
+        socket.emit('msg', {
+            ...payload, 
+            to: {id:3 - user.id}, 
+            from: {id: user.id}
+        })
+    }
+}
+
+export const onMessagePull = (user, msg) => {
     return (dispatch) => {
         dispatch({
             type: UPDATE_MESSAGE,
             payload: {
-                direction: 'out',
-                status: 'sent',
+                direction: 'in',
+                status: 'received',
                 msg,
-            }
+            },
+            id: user.id,
         })
-        socket.emit('msg', msg)
     }
 }

@@ -8,3 +8,9 @@ export function registerInputChanging(onMessageTyping){
         onMessageTyping(data)
     })
 }
+
+export function registerMessageListening(onMessageChanging){
+    socket.on('msg', data => {
+        onMessageChanging(data)
+    })
+}

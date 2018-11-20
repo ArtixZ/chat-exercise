@@ -8,14 +8,14 @@ import UserPanel from './components/UserPanel'
 
 import './App.css';
 import config from './config'
-import { onInpuChange, onMessageChange } from './actions'
+import { onInpuChange, onMessagePush, onMessagePull } from './actions'
 
 class App extends Component {
   
   render() {
 
     const { users } = config
-    const { onInpuChange, onMessageChange } = this.props
+    const { msgs, onInpuChange, onMessagePush, onMessagePull } = this.props
 
     return (
       <Grid style={{height: '100%'}}>
@@ -23,9 +23,12 @@ class App extends Component {
           {users.map( (user, idx) => 
             <UserPanel 
               user={user}
+              messages = {msgs[user.id]}
+
               toUser={users[1-idx]}
               onInpuChange={onInpuChange}
-              onMessageChange={onMessageChange}
+              onMessagePush={onMessagePush}
+              onMessagePull={onMessagePull}
             />
           )}
           
@@ -43,5 +46,6 @@ const mapStatToProps = (state) => {
 
 export default connect(mapStatToProps, {
   onInpuChange,
-  onMessageChange,
+  onMessagePush,
+  onMessagePull,
 })(App)

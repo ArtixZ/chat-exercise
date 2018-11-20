@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap'
 
 import UserInput from './UserInput'
 import DisplayPane from './DisplayPane'
-import { socket, registerInputChanging } from '../utils'
+import { registerInputChanging, registerMessageListening } from '../utils'
 
 export default class UserPanel extends Component {
 
@@ -16,6 +16,8 @@ export default class UserPanel extends Component {
         this.onChatInput = this.onChatInput.bind(this)
         this.onSendMsg = this.onSendMsg.bind(this)
         this.onTypingReceived = this.onTypingReceived.bind(this)
+        this.onMessagePushed = this.onMessagePushed.bind(this)
+        
     }
 
     onChatInput(user, e) {
@@ -27,9 +29,9 @@ export default class UserPanel extends Component {
     }
     
     onSendMsg(user) {
-        const { onMessageChange } = this.props
+        const { onMessagePush } = this.props
         const { inputMsg } = this.state
-        onMessageChange(user, inputMsg)
+        onMessagePush(user, inputMsg)
     }
     onTypingReceived(data) {
         const { user } = this.props
@@ -45,14 +47,22 @@ export default class UserPanel extends Component {
         }
         
     }
+
+    onMessagePushed(data) {
+        const { user, onMessagePull } = this.props
+        if(data.to.id === user.id) {
+            onMessagePull(user, data.msg)
+        }
+    }
+
     componentDidMount() {
-        
         registerInputChanging(this.onTypingReceived)
+        registerMessageListening(this.onMessagePushed)
     }
 
     render() {
 
-        const { user, toUser } = this.props
+        const { user, toUser, messages } = this.props
         const { typing } = this.state
 
         return(
@@ -60,15 +70,7 @@ export default class UserPanel extends Component {
                 <div className="display-title">{user.name}</div>
                 <div className="display-pane">
                   <DisplayPane 
-                    msgs = {[{
-                      direction: 'out',
-                      status: 'sent',
-                      msg: 'first test message.........',
-                    }, {
-                      direction: 'in',
-                      status: 'sent',
-                      msg: 'second test message...............',
-                    }]}
+                    msgs = {messages}
                   >
                     
                     <div className="typing-status"> 
