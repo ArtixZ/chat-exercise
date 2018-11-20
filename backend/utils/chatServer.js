@@ -3,5 +3,9 @@ module.exports = function(io) {
         socket.on('msg', function(data) {
             socket('')
         })
+        socket.on('changing', function(data){
+            console.log(socket)
+            socket.emit('changing', data)
+        })
     })
 }
