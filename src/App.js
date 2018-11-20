@@ -1,26 +1,50 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap'
+
+import UserInput from './components/UserInput'
+import DisplayPane from './components/DisplayPane'
+
 import './App.css';
+import config from './config'
 
 class App extends Component {
+
   render() {
+
+    const { users } = config
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Grid style={{height: '100%'}}>
+        <Row className="show-grid" style={{height: '100%'}}>
+          {users.map( user => {
+
+            return (
+              <Col className="chat-column" md={6} sm={6} xs={6} style={{height: '100%'}}>
+                <div className="display-title">{user.name}</div>
+                <div className="display-pane">
+                  <DisplayPane 
+                    msgs = {[{
+                      direction: 'out',
+                      status: 'sent',
+                      msg: 'first test message.........',
+                    }, {
+                      direction: 'in',
+                      status: 'sent',
+                      msg: 'second test message...............',
+                    }]}
+                  />
+                </div>
+                <div className="user-input">
+                  <UserInput 
+                  />
+                </div>
+              </Col>
+            )
+          })}
+          
+        </Row>
+      </Grid>
     );
   }
 }
